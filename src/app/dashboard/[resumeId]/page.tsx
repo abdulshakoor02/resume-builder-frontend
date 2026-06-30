@@ -24,6 +24,7 @@ export default function ResumeDetailPage({
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(true);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const stopPoll = useCallback(() => {
     if (pollRef.current) {
@@ -125,13 +126,74 @@ export default function ResumeDetailPage({
 
   const handleDownload = () => {
     if (!htmlContent) return;
-    const blob = new Blob([htmlContent], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "resume.html";
-    a.click();
-    URL.revokeObjectURL(url);
+    const printFrame = (win: Window, doc: Document) => {
+      // Inject print-critical CSS that browsers strip by default.
+      // Without this, colored headers, sidebars, gradients and accents all become white.
+      const style = doc.createElement("style");
+      style.textContent = `
+        @page { margin: 10mm; size: A4; }
+        @media print {
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
+          body {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            margin: 0;
+            padding: 0;
+          }
+          /* Avoid splitting sections across pages */
+          section, .section, .resume-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+          h1, h2, h3, h4 {
+            break-after: avoid;
+            page-break-after: avoid;
+          }
+        }
+      `;
+      doc.head.appendChild(style);
+
+      const doPrint = () => {
+        win.focus();
+        win.print();
+      };
+
+      // Wait for fonts (Google Fonts etc.) to finish loading before printing.
+      // Otherwise headings may fall back to browser defaults and look wrong.
+      if (doc.fonts?.ready) {
+        doc.fonts.ready.then(doPrint);
+      } else {
+        // Small delay as fallback for environments without FontFaceSet
+        setTimeout(doPrint, 500);
+      }
+    };
+
+    // Best path: use the already-rendered iframe (fonts already loaded, DOM settled).
+    const iframe = iframeRef.current;
+    if (iframe?.contentWindow && iframe?.contentDocument) {
+      printFrame(iframe.contentWindow, iframe.contentDocument);
+      return;
+    }
+
+    // Fallback (e.g. accepted screen with no iframe): open in a new window and print.
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) {
+      alert("Please allow pop-ups to download your resume as PDF.");
+      return;
+    }
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    if (printWindow.document.readyState === "complete") {
+      printFrame(printWindow, printWindow.document);
+    } else {
+      printWindow.onload = () => printFrame(printWindow, printWindow.document);
+    }
+    printWindow.onafterprint = () => printWindow.close();
   };
 
   if (isAccepted) {
@@ -175,7 +237,7 @@ export default function ResumeDetailPage({
             <h2 className="text-lg font-semibold text-gray-900">{resume?.title || "Preview"}</h2>
             {htmlContent && (
               <button onClick={handleDownload} className="text-sm bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700">
-                Download
+                Download PDF
               </button>
             )}
           </div>
@@ -197,7 +259,7 @@ export default function ResumeDetailPage({
               <p className="text-red-600">{error}</p>
             </div>
           ) : htmlContent ? (
-            <iframe srcDoc={htmlContent} className="w-full h-[800px] rounded-lg border border-gray-200 bg-white" title="Resume Preview" />
+            <iframe ref={iframeRef} srcDoc={htmlContent} className="w-full h-[800px] rounded-lg border border-gray-200 bg-white" title="Resume Preview" />
           ) : (
             <div className="flex items-center justify-center h-[800px] bg-gray-50 rounded-lg border border-gray-200">
               <p className="text-gray-400">Preview will appear here</p>
