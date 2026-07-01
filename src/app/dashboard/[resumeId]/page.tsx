@@ -105,14 +105,14 @@ export default function ResumeDetailPage({
     return () => { cancelled = true; stopPoll(); };
   }, [resumeId, loadResume, loadHTML, pollStatus, stopPoll]);
 
-  const handleRefine = async (prompt: string) => {
+  const handleRefine = async (prompt: string, photo?: File | null) => {
     const userMsg: Message = { role: "user", content: prompt };
     setMessages((prev) => [...prev, userMsg]);
     setIsGenerating(true);
     setLoading(true);
     setError(null);
     try {
-      await api.resumes.refine(resumeId, prompt);
+      await api.resumes.refine(resumeId, prompt, photo);
       stopPoll();
       pollRef.current = setInterval(() => pollStatus(resumeId), 3000);
     } catch (err) {
@@ -144,12 +144,13 @@ export default function ResumeDetailPage({
             margin: 0;
             padding: 0;
           }
-          /* Avoid splitting sections across pages */
-          section, .section, .resume-section {
+          /* Let sections flow across pages naturally. */
+          /* Only keep individual entries together so a job bullet doesn't split mid-way. */
+          .resume-entry, .resume-item, .job, .education-item, .project-item, li {
             break-inside: avoid;
             page-break-inside: avoid;
           }
-          h1, h2, h3, h4 {
+          h1, h2, h3, h4, h5, h6 {
             break-after: avoid;
             page-break-after: avoid;
           }

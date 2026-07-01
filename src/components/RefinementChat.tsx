@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
 
 interface Message {
   role: "user" | "assistant";
@@ -10,23 +11,38 @@ interface Message {
 
 interface RefinementChatProps {
   messages: Message[];
-  onSend: (prompt: string) => void;
+  onSend: (prompt: string, photo?: File | null) => void;
   isLoading: boolean;
   onAccept: () => void;
 }
 
 export default function RefinementChat({ messages, onSend, isLoading, onAccept }: RefinementChatProps) {
   const [input, setInput] = useState("");
+  const [photo, setPhoto] = useState<File | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (accepted: File[]) => {
+      if (accepted.length > 0) setPhoto(accepted[0]);
+    },
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/webp": [".webp"],
+    },
+    maxFiles: 1,
+    maxSize: 2 * 1024 * 1024,
+  });
+
   const handleSend = () => {
     if (!input.trim() || isLoading) return;
-    onSend(input.trim());
+    onSend(input.trim(), photo);
     setInput("");
+    setPhoto(null);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -63,6 +79,29 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
         <div ref={bottomRef} />
       </div>
 
+      {/* Photo upload area */}
+      {photo && (
+        <div className="border-t border-gray-200 px-4 pt-3">
+          <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
+            <img
+              src={URL.createObjectURL(photo)}
+              alt="Profile preview"
+              className="w-12 h-12 rounded-full object-cover border border-blue-300"
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-blue-700 truncate">{photo.name}</p>
+              <p className="text-xs text-blue-500">Will be added to your resume</p>
+            </div>
+            <button
+              onClick={() => setPhoto(null)}
+              className="text-red-500 hover:text-red-700 text-xs"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="border-t border-gray-200 p-4">
         <div className="flex gap-2">
           <textarea
@@ -96,6 +135,22 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             >
               Accept
             </button>
+          </div>
+        </div>
+        <div className="mt-2">
+          <div
+            {...getRootProps()}
+            className={`border-2 border-dashed rounded-lg p-3 text-center cursor-pointer transition-colors ${
+              isDragActive
+                ? "border-blue-500 bg-blue-50"
+                : "border-gray-200 hover:border-gray-300"
+            }`}
+          >
+            <input {...getInputProps()} />
+            <svg className="mx-auto h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="mt-1 text-xs text-gray-500">Add profile photo (JPG, PNG, WebP up to 2MB)</p>
           </div>
         </div>
       </div>

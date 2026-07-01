@@ -83,10 +83,17 @@ export const api = {
       request<{ resumes: Resume[] }>("GET", "/api/resumes"),
     get: (id: string) =>
       request<Resume>("GET", `/api/resumes/${id}`),
-    refine: (id: string, prompt: string) =>
-      request<{ pdf_url: string }>("POST", `/api/resumes/${id}/refine`, {
+    refine: async (id: string, prompt: string, photo?: File | null) => {
+      if (photo) {
+        const formData = new FormData();
+        formData.append("prompt", prompt);
+        formData.append("photo", photo);
+        return request<{ pdf_url: string }>("POST", `/api/resumes/${id}/refine`, formData, true);
+      }
+      return request<{ pdf_url: string }>("POST", `/api/resumes/${id}/refine`, {
         prompt,
-      }),
+      });
+    },
     pdf: async (id: string) => {
       const res = await fetch(
         `${BACKEND_URL}/api/resumes/${id}/pdf`,

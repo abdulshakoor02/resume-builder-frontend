@@ -19,6 +19,7 @@ export default function FileUpload({ onFilesSelected, files }: FileUploadProps) 
 
   return (
     <div className="w-full">
+      {/* Resume file upload */}
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
@@ -40,7 +41,7 @@ export default function FileUpload({ onFilesSelected, files }: FileUploadProps) 
       </div>
 
       {files.length > 0 && (
-        <ul className="mt-3 space-y-2">
+        <ul className="space-y-2 mt-4">
           {files.map((file, i) => (
             <li key={i} className="flex items-center justify-between text-sm bg-gray-50 rounded px-3 py-2">
               <span className="text-gray-700 truncate">{file.name}</span>
