@@ -12,7 +12,7 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const { createResume, isGenerating, error } = useResume();
-  const { token } = useAuth();
+const { token, logout } = useAuth();
   const router = useRouter();
 
   const handleFilesSelected = useCallback((newFiles: File[]) => {
@@ -38,30 +38,38 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Resume Builder
+      <header className="glass-card-strong sticky top-0 z-50">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="text-xl font-bold gradient-text-subtle">
+            ✦ Resume Builder
           </Link>
           <div className="flex items-center gap-4">
             {token ? (
-              <Link
-                href="/dashboard"
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={logout}
+                  className="text-sm text-slate-400 hover:text-rose-500 transition-colors"
+                >
+                  Log out
+                </button>
+              </>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="text-sm text-gray-600 hover:text-gray-900"
+                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/signup"
-                  className="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
+                  className="text-sm btn-primary"
                 >
                   Get started
                 </Link>
@@ -72,24 +80,26 @@ export default function Home() {
       </header>
 
       <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Build a beautiful resume with AI
+        <div className="w-full max-w-2xl animate-fade-in-up">
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold tracking-tight">
+              <span className="gradient-text">Build a beautiful resume</span>
+              <br />
+              <span className="text-slate-800">with AI</span>
             </h1>
-            <p className="mt-2 text-gray-500">
+            <p className="mt-3 text-slate-500 text-lg leading-relaxed max-w-lg mx-auto">
               Describe your experience or upload an existing resume. Our AI will
-              design a professional PDF.
+              design a professional PDF in seconds.
             </p>
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+            <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-600 animate-slide-down">
               {error}
             </div>
           )}
 
-          <div className="space-y-6">
+          <div className="glass-card-strong rounded-2xl p-8 space-y-6">
             <PromptInput
               value={prompt}
               onChange={setPrompt}
@@ -99,10 +109,10 @@ export default function Home() {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
+                <div className="w-full border-t border-slate-200/60" />
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-gray-50 px-2 text-gray-400">or</span>
+                <span className="bg-white/50 backdrop-blur px-3 text-slate-400 font-medium">or</span>
               </div>
             </div>
 
@@ -112,9 +122,19 @@ export default function Home() {
               <button
                 onClick={handleSubmit}
                 disabled={isGenerating}
-                className="w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full btn-primary py-3.5 text-sm"
               >
-                {isGenerating ? "Generating..." : "Build Resume from Uploads"}
+                {isGenerating ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Generating...
+                  </span>
+                ) : (
+                  "Build Resume from Uploads"
+                )}
               </button>
             )}
           </div>

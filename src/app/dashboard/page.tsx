@@ -9,7 +9,7 @@ import { Resume } from "@/lib/api";
 
 export default function DashboardPage() {
   const { resumes, loadResumes, error } = useResume();
-  const { token, isLoading: authLoading } = useAuth();
+  const { token, isLoading: authLoading, logout } = useAuth();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,10 @@ export default function DashboardPage() {
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin h-8 w-8 border-2 border-blue-600 border-t-transparent rounded-full" />
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-2 border-indigo-500 border-t-transparent rounded-full mx-auto" />
+          <p className="mt-3 text-sm text-slate-400">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -30,9 +33,12 @@ export default function DashboardPage() {
   if (!token) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <p className="text-gray-600 mb-4">Sign in to view your resumes</p>
-          <Link href="/login" className="text-blue-600 hover:underline">
+        <div className="text-center animate-fade-in-up">
+          <svg className="mx-auto h-12 w-12 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+          </svg>
+          <p className="text-slate-600 mb-4 font-medium">Sign in to view your resumes</p>
+          <Link href="/login" className="btn-primary inline-block text-sm">
             Sign in
           </Link>
         </div>
@@ -42,44 +48,58 @@ export default function DashboardPage() {
 
   return (
     <main className="flex-1">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Resume Builder
+      <header className="glass-card-strong sticky top-0 z-50">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="text-xl font-bold gradient-text-subtle">
+            ✦ Resume Builder
           </Link>
-          <Link
-            href="/"
-            className="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
-          >
-            New Resume
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={logout}
+              className="text-sm text-slate-400 hover:text-rose-500 transition-colors font-medium"
+            >
+              Log out
+            </button>
+            <Link
+              href="/"
+              className="btn-primary text-sm"
+            >
+              ✦ New Resume
+            </Link>
+          </div>
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Your Resumes</h1>
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl font-bold text-slate-800">Your Resumes</h1>
+          <p className="text-sm text-slate-400">{resumes.length} resume{resumes.length !== 1 ? "s" : ""}</p>
+        </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+          <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-600 animate-slide-down">
             {error}
           </div>
         )}
 
         {resumes.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-lg border border-gray-200">
-            <svg className="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <p className="mt-3 text-gray-500">No resumes yet</p>
+          <div className="text-center py-20 glass-card rounded-2xl animate-fade-in-up">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-100 mb-5">
+              <svg className="h-8 w-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <p className="text-slate-500 font-medium">No resumes yet</p>
+            <p className="text-slate-400 text-sm mt-1 mb-5">Create your first AI-powered resume</p>
             <Link
               href="/"
-              className="mt-4 inline-block text-sm text-blue-600 hover:underline"
+              className="btn-primary inline-block text-sm"
             >
               Create your first resume
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {resumes.map((resume: Resume) => (
               <ResumeCard key={resume.id} resume={resume} />
             ))}

@@ -200,24 +200,33 @@ export default function ResumeDetailPage({
   if (isAccepted) {
     return (
       <main className="flex-1">
-        <header className="border-b border-gray-200 bg-white">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <Link href="/dashboard" className="text-sm text-blue-600 hover:underline">← Back to Dashboard</Link>
+        <header className="glass-card-strong sticky top-0 z-50">
+          <div className="max-w-5xl mx-auto px-6 py-4">
+            <Link href="/dashboard" className="text-sm text-indigo-500 hover:text-indigo-600 transition-colors font-medium">← Back to Dashboard</Link>
           </div>
         </header>
-        <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <svg className="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900">Resume Accepted!</h1>
-          <p className="mt-2 text-gray-500">Your resume is ready. Download or return to Dashboard anytime.</p>
-          <div className="mt-6 flex gap-3 justify-center">
-            <button onClick={handleDownload} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-              Download HTML
-            </button>
-            <Link href="/dashboard" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Dashboard
-            </Link>
+        <div className="max-w-lg mx-auto px-6 py-20 text-center">
+          <div className="animate-scale-in">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 mb-6">
+              <svg className="h-10 w-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h1 className="text-2xl font-bold text-slate-800">Resume Accepted!</h1>
+            <p className="mt-2 text-slate-500">Your resume is ready. Download or return to Dashboard anytime.</p>
+            <div className="mt-8 flex gap-3 justify-center">
+              <button onClick={handleDownload} className="btn-primary text-sm">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download PDF
+                </span>
+              </button>
+              <Link href="/dashboard" className="rounded-xl border border-slate-200 bg-white/80 backdrop-blur px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-white hover:shadow-md transition-all">
+                Dashboard
+              </Link>
+            </div>
           </div>
         </div>
       </main>
@@ -226,44 +235,67 @@ export default function ResumeDetailPage({
 
   return (
     <main className="flex-1">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link href="/dashboard" className="text-sm text-blue-600 hover:underline">← Back to Dashboard</Link>
+      <header className="glass-card-strong sticky top-0 z-50">
+        <div className="max-w-[90rem] mx-auto px-6 py-4">
+          <Link href="/dashboard" className="text-sm text-indigo-500 hover:text-indigo-600 transition-colors font-medium">← Back to Dashboard</Link>
         </div>
       </header>
 
-      <div className="max-w-[90rem] mx-auto px-4 py-6 flex gap-6">
+      <div className="max-w-[90rem] mx-auto px-6 py-6 flex gap-6">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-gray-900">{resume?.title || "Preview"}</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-slate-800">{resume?.title || "Preview"}</h2>
             {htmlContent && (
-              <button onClick={handleDownload} className="text-sm bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700">
-                Download PDF
+              <button onClick={handleDownload} className="rounded-xl bg-emerald-500 text-white px-4 py-2 text-sm font-medium hover:bg-emerald-600 transition-all hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download PDF
+                </span>
               </button>
             )}
           </div>
 
           {loading || isGenerating ? (
-            <div className="flex items-center justify-center h-[800px] bg-gray-50 rounded-lg border border-gray-200">
-              <div className="text-center">
-                <svg className="animate-spin h-10 w-10 text-blue-600 mx-auto" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                <p className="mt-3 text-sm text-gray-500">
+            <div className="flex items-center justify-center h-[800px] glass-card rounded-2xl">
+              <div className="text-center animate-fade-in">
+                <div className="relative mx-auto w-16 h-16">
+                  <svg className="animate-spin h-16 w-16 text-indigo-400" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                </div>
+                <p className="mt-4 text-sm font-medium text-slate-500">
                   {isGenerating ? "Designing your resume..." : "Loading preview..."}
                 </p>
+                <div className="mt-4 flex justify-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-indigo-300 animate-pulse" style={{animationDelay: "0s"}} />
+                  <div className="w-2 h-2 rounded-full bg-indigo-300 animate-pulse" style={{animationDelay: "0.15s"}} />
+                  <div className="w-2 h-2 rounded-full bg-indigo-300 animate-pulse" style={{animationDelay: "0.3s"}} />
+                </div>
               </div>
             </div>
           ) : error ? (
-            <div className="flex items-center justify-center h-[800px] bg-red-50 rounded-lg border border-red-200">
-              <p className="text-red-600">{error}</p>
+            <div className="flex items-center justify-center h-[800px] bg-rose-50 rounded-2xl border border-rose-200">
+              <div className="text-center">
+                <svg className="mx-auto h-12 w-12 text-rose-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <p className="text-rose-600 font-medium">{error}</p>
+              </div>
             </div>
           ) : htmlContent ? (
-            <iframe ref={iframeRef} srcDoc={htmlContent} className="w-full h-[800px] rounded-lg border border-gray-200 bg-white" title="Resume Preview" />
+            <iframe ref={iframeRef} srcDoc={htmlContent} className="w-full h-[800px] rounded-2xl border border-slate-200 bg-white shadow-sm" title="Resume Preview" />
           ) : (
-            <div className="flex items-center justify-center h-[800px] bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-gray-400">Preview will appear here</p>
+            <div className="flex items-center justify-center h-[800px] glass-card rounded-2xl">
+              <div className="text-center">
+                <svg className="mx-auto h-12 w-12 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <p className="text-slate-400 font-medium">Preview will appear here</p>
+              </div>
             </div>
           )}
         </div>

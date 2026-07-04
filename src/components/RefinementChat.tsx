@@ -53,25 +53,35 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
   };
 
   return (
-    <div className="flex flex-col h-full border border-gray-200 rounded-lg bg-white">
+    <div className="flex flex-col h-full glass-card-strong rounded-2xl overflow-hidden">
       <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[300px] max-h-[500px]">
         {messages.length === 0 && (
-          <p className="text-sm text-gray-400 text-center py-8">
-            Ask for changes to refine your resume. For example: "Make the header bolder" or "Add a skills section"
-          </p>
+          <div className="text-center py-10">
+            <svg className="mx-auto h-8 w-8 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <p className="text-sm text-slate-400 px-4">
+              Ask for changes to refine your resume.<br />e.g. "Make the header bolder" or "Add a skills section"
+            </p>
+          </div>
         )}
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-in-up`}>
             <div
-              className={`max-w-[80%] rounded-lg px-4 py-2 text-sm ${
+              className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-800"
+                  ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/20 rounded-br-md"
+                  : "bg-white border border-slate-100 text-slate-700 shadow-sm rounded-bl-md"
               }`}
             >
               <p>{msg.content}</p>
               {msg.pdfUrl && (
-                <p className="text-xs mt-1 opacity-75">New PDF generated ✓</p>
+                <p className="text-xs mt-1.5 opacity-75 flex items-center gap-1">
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  New PDF generated
+                </p>
               )}
             </div>
           </div>
@@ -81,20 +91,20 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
 
       {/* Photo upload area */}
       {photo && (
-        <div className="border-t border-gray-200 px-4 pt-3">
-          <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
+        <div className="border-t border-slate-100 px-4 pt-3">
+          <div className="flex items-center gap-3 p-2.5 bg-indigo-50 rounded-xl border border-indigo-100">
             <img
               src={URL.createObjectURL(photo)}
               alt="Profile preview"
-              className="w-12 h-12 rounded-full object-cover border border-blue-300"
+              className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-blue-700 truncate">{photo.name}</p>
-              <p className="text-xs text-blue-500">Will be added to your resume</p>
+              <p className="text-xs text-indigo-700 truncate font-medium">{photo.name}</p>
+              <p className="text-xs text-indigo-400">Will be added to your resume</p>
             </div>
             <button
               onClick={() => setPhoto(null)}
-              className="text-red-500 hover:text-red-700 text-xs"
+              className="text-rose-400 hover:text-rose-600 text-xs transition-colors font-medium"
             >
               Remove
             </button>
@@ -102,7 +112,7 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
         </div>
       )}
 
-      <div className="border-t border-gray-200 p-4">
+      <div className="border-t border-slate-100 p-4">
         <div className="flex gap-2">
           <textarea
             value={input}
@@ -111,13 +121,13 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             placeholder="Type refinement instructions..."
             rows={2}
             disabled={isLoading}
-            className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none resize-none disabled:opacity-50"
+            className="flex-1 rounded-xl border border-slate-200 bg-white/80 px-3.5 py-2.5 text-sm focus:border-indigo-400 focus:ring-4 focus:ring-indigo-400/10 outline-none resize-none disabled:opacity-50 transition-all placeholder:text-slate-400"
           />
           <div className="flex flex-col gap-2">
             <button
               onClick={handleSend}
               disabled={isLoading || !input.trim()}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="btn-primary px-4 py-2 text-sm"
             >
               {isLoading ? (
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
@@ -125,13 +135,15 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
               ) : (
-                "Send"
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
               )}
             </button>
             <button
               onClick={onAccept}
               disabled={isLoading}
-              className="rounded-lg bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-700 disabled:opacity-50 transition-colors"
+              className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50 transition-all hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95"
             >
               Accept
             </button>
@@ -140,17 +152,17 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
         <div className="mt-2">
           <div
             {...getRootProps()}
-            className={`border-2 border-dashed rounded-lg p-3 text-center cursor-pointer transition-colors ${
+            className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-all duration-200 ${
               isDragActive
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-200 hover:border-gray-300"
+                ? "border-indigo-400 bg-indigo-50"
+                : "border-slate-200 hover:border-indigo-300 hover:bg-slate-50"
             }`}
           >
             <input {...getInputProps()} />
-            <svg className="mx-auto h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mx-auto h-6 w-6 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <p className="mt-1 text-xs text-gray-500">Add profile photo (JPG, PNG, WebP up to 2MB)</p>
+            <p className="mt-1 text-xs text-slate-400">Add profile photo (JPG, PNG, WebP up to 2MB)</p>
           </div>
         </div>
       </div>
