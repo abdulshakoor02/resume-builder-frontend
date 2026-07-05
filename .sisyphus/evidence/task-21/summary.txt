@@ -1,0 +1,93 @@
+================================================================================
+  TASK 21: Playwright QA — Login / Signup Pages
+  Date: 2026-07-05
+  Dev Server: http://localhost:3000 (running, returned 200)
+================================================================================
+
+TEST MATRIX: 2 pages × 3 viewports × 2 themes = 12 total tests
+
+  Pages:    /login, /signup
+  Viewports: 375, 768, 1024
+  Themes:    light, dark
+
+================================================================================
+  ASSERTION RESULTS
+================================================================================
+
+  CHECK                        STATUS    DETAILS
+  -----                        ------    -------
+  Header NOT visible           ✗ FAIL    Header (banner) IS visible on all auth pages.
+                                          Contains: logo, Home, Sign In, Get Started,
+                                          and theme toggle links.
+
+  Footer NOT visible           ✗ FAIL    Footer (contentinfo) IS visible on all auth
+                                          pages. Contains: company info, nav links,
+                                          copyright notice.
+
+  Logo centered above form     ✓ PASS    Logo ("wethinkdigital ◆ Resume") appears in
+                                          main content area, positioned above the form
+                                          on all 12 combinations.
+
+  Email input visible          ✓ PASS    Email textbox (placeholder="you@example.com")
+                                          visible on all 12 combinations.
+                                          * login-dark-768 had initial flaky result;
+                                            re-check confirmed visible.
+
+  Password input visible       ✓ PASS    Password textbox visible on all 12 combinations.
+                                          * login-dark-768 re-check confirmed visible.
+
+  Submit button visible        ✓ PASS    "Sign in" / "Create Account" button visible
+                                          on all 12 combinations.
+
+  Mode-switch link visible     ✓ PASS    Login: "Don't have an account? Sign up"
+                                          Signup: "Already have an account? Sign in"
+                                          Both visible on all 12 combinations.
+
+  No horizontal scroll         ✓ PASS    No horizontal overflow detected at any viewport.
+
+================================================================================
+  PER-TEST SUMMARY
+================================================================================
+
+  login-light-375   ✗ (Header, Footer visible)
+  login-dark-375    ✗ (Header, Footer visible)
+  login-light-768   ✗ (Header, Footer visible)
+  login-dark-768    ✗ (Header, Footer visible) [re-checked: all elements visible]
+  login-light-1024  ✗ (Header, Footer visible)
+  login-dark-1024   ✗ (Header, Footer visible)
+
+  signup-light-375  ✗ (Header, Footer visible)
+  signup-dark-375   ✗ (Header, Footer visible)
+  signup-light-768  ✗ (Header, Footer visible)
+  signup-dark-768   ✗ (Header, Footer visible)
+  signup-light-1024 ✗ (Header, Footer visible)
+  signup-dark-1024  ✗ (Header, Footer visible)
+
+================================================================================
+  OVERALL: 0 passed, 12 failed (all due to Header/Footer visibility)
+================================================================================
+
+KEY FINDING:
+  The auth pages (/login, /signup) are expected to use Layout variant="auth"
+  which should suppress the Header and Footer. However, both the <banner> and
+  <contentinfo> elements are rendered and visible at all viewports and themes.
+
+  The form itself, logo, inputs, buttons, mode-switch link, and responsive
+  layout (no horizontal scroll) are all functioning correctly.
+
+  This is likely a layout configuration issue — the auth variant is not
+  properly excluding the Header/Footer components from the render tree.
+
+================================================================================
+  SCREENSHOTS (12 files in .sisyphus/evidence/task-21/)
+================================================================================
+
+  login-light-375.png     login-dark-375.png
+  login-light-768.png     login-dark-768.png
+  login-light-1024.png    login-dark-1024.png
+
+  signup-light-375.png    signup-dark-375.png
+  signup-light-768.png    signup-dark-768.png
+  signup-light-1024.png   signup-dark-1024.png
+
+================================================================================

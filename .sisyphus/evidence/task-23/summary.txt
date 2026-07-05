@@ -1,0 +1,50 @@
+REGRESSION TEST SUMMARY — Task 23
+===================================
+Date: 2025-07-05
+Overall: ✅ ALL 19 ASSERTIONS PASSED
+
+Test 1: Theme Persistence
+  ✅ Dark class applied after toggling with aria-label="Switch to dark mode"
+  ✅ Dark class persists across page reload (localStorage theme key preserved)
+  Evidence: theme-persist.png
+
+Test 2: Theme Toggle Switches Modes
+  ✅ Light mode confirmed at start (after clearing localStorage)
+  ✅ Dark mode applied after clicking "Switch to dark mode"
+  ✅ Light mode restored after clicking "Switch to light mode"
+  Evidence: theme-toggle-light.png, theme-toggle-dark.png
+
+Test 3: Mobile Navigation (375px viewport)
+  ✅ aria-label="Open navigation" button found and clicked
+  ✅ Overlay visible: Home, Dashboard, Sign In
+  ✅ Clicking Sign In (button) navigated to /login
+  Evidence: mobile-nav-home.png, mobile-nav-open.png, mobile-nav-login.png
+
+Test 4: 404 Page
+  ✅ "404" text visible on /nonexistent-page-xyz-123
+  ✅ "Back to Home" link present
+  Evidence: 404-page.png
+
+Test 5: Auth Guard on Dashboard
+  ✅ Without token, /dashboard shows sign-in prompt
+  ✅ Link to /login present
+  Evidence: auth-guard.png
+
+Test 6: Logo Renders on All Pages
+  ✅ "Resume" text visible in header on / (home)
+  ✅ "Resume" text visible in centered logo on /login
+  ✅ "Resume" text visible in centered logo on /signup
+  Evidence: logo-home.png, logo-login.png, logo-signup.png
+
+Test 7: Social Proof Section
+  ✅ "10,000+" visible
+  ✅ "ATS-Optimized" visible
+  ✅ "4.8/5" visible
+  Evidence: social-proof.png
+
+NOTES:
+- Theme toggle actual aria-labels: "Switch to dark mode" / "Switch to light mode" (not "Toggle theme")
+- Mobile nav Sign In is a <button>, not an <a> link
+- Logo text is "wethinkdigital◆ Resume" on all pages
+- All tests run against localhost:3000 with Chromium headless
+- No backend API calls were made

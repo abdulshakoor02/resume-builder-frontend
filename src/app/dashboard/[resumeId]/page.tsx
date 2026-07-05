@@ -4,6 +4,7 @@ import { useEffect, useState, use, useRef, useCallback } from "react";
 import Link from "next/link";
 import { api, Resume } from "@/lib/api";
 import RefinementChat from "@/components/RefinementChat";
+import Layout from "@/components/Layout";
 
 interface Message {
   role: "user" | "assistant";
@@ -199,7 +200,8 @@ export default function ResumeDetailPage({
 
   if (isAccepted) {
     return (
-      <div className="flex-1">
+      <Layout>
+        <div className="flex-1">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <Link href="/dashboard" className="text-sm text-accent hover:text-accent-hover transition-colors font-medium">← Back to Dashboard</Link>
         </div>
@@ -228,11 +230,13 @@ export default function ResumeDetailPage({
           </div>
         </div>
       </div>
+    </Layout>
     );
   }
 
   return (
-    <div className="flex-1">
+    <Layout>
+      <div className="flex-1">
       <div className="max-w-[90rem] mx-auto px-6 py-4">
         <Link href="/dashboard" className="text-sm text-accent hover:text-accent-hover transition-colors font-medium">← Back to Dashboard</Link>
       </div>
@@ -300,6 +304,7 @@ export default function ResumeDetailPage({
           <RefinementChat messages={messages} onSend={handleRefine} isLoading={isGenerating} onAccept={handleAccept} />
         </div>
       </div>
-    </div>
+      </div>
+    </Layout>
   );
 }

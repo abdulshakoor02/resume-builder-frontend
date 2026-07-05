@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
 import ResumeCard from "@/components/ResumeCard";
+import Layout from "@/components/Layout";
 import { Resume } from "@/lib/api";
 
 export default function DashboardPage() {
@@ -21,42 +22,47 @@ export default function DashboardPage() {
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center animate-fade-in">
-          <div className="animate-spin h-8 w-8 border-2 border-accent border-t-transparent rounded-full mx-auto" />
-          <p className="mt-3 text-sm text-ink-muted">Loading...</p>
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center animate-fade-in">
+            <div className="animate-spin h-8 w-8 border-2 border-accent border-t-transparent rounded-full mx-auto" />
+            <p className="mt-3 text-sm text-ink-muted">Loading...</p>
+          </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   if (!token) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] p-6">
-        <div className="text-center animate-fade-in-up">
-          <div className="card p-10 max-w-md">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface-raised mb-5">
-              <svg className="h-8 w-8 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-              </svg>
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh] p-6">
+          <div className="text-center animate-fade-in-up">
+            <div className="card p-10 max-w-md">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface-raised mb-5">
+                <svg className="h-8 w-8 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-ink-primary mb-2">Sign in to view your resumes</h2>
+              <p className="text-sm text-ink-secondary mb-6">Track, refine, and download your AI-crafted resumes in one place.</p>
+              <Link href="/login" className="btn-primary inline-block text-sm px-8 py-3">
+                Sign in
+              </Link>
+              <p className="mt-4 text-xs text-ink-muted">
+                Don&apos;t have an account?{" "}
+                <Link href="/signup" className="text-accent hover:text-accent-hover font-medium">Sign up</Link>
+              </p>
             </div>
-            <h2 className="text-xl font-bold text-ink-primary mb-2">Sign in to view your resumes</h2>
-            <p className="text-sm text-ink-secondary mb-6">Track, refine, and download your AI-crafted resumes in one place.</p>
-            <Link href="/login" className="btn-primary inline-block text-sm px-8 py-3">
-              Sign in
-            </Link>
-            <p className="mt-4 text-xs text-ink-muted">
-              Don&apos;t have an account?{" "}
-              <Link href="/signup" className="text-accent hover:text-accent-hover font-medium">Sign up</Link>
-            </p>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="section-container py-10">
+    <Layout>
+      <div className="section-container py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-display text-ink-primary">Your Resumes</h1>
@@ -95,6 +101,7 @@ export default function DashboardPage() {
           ))}
         </div>
       )}
-    </div>
+      </div>
+    </Layout>
   );
 }

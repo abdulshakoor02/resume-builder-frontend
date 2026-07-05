@@ -1,0 +1,119 @@
+============================================================
+LANDING PAGE QA REPORT - Task 20
+============================================================
+URL: http://localhost:3000
+Date: 2026-07-05T12:45:13.541Z
+Viewports tested: 320px, 375px, 768px, 1024px, 1440px
+Themes tested: light, dark
+Total screenshots: 10
+
+OVERALL RESULT: ALL PASSED
+
+------------------------------------------------------------
+DETAILED RESULTS
+------------------------------------------------------------
+
+[320px - LIGHT]
+  Horizontal Scroll: PASS (scrollWidth=320, windowWidth=320)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Screenshot:        landing-light-320.png
+
+[320px - DARK]
+  Horizontal Scroll: PASS (scrollWidth=320, windowWidth=320)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Dark Background:   PASS
+  Screenshot:        landing-dark-320.png
+
+[375px - LIGHT]
+  Horizontal Scroll: PASS (scrollWidth=375, windowWidth=375)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Screenshot:        landing-light-375.png
+
+[375px - DARK]
+  Horizontal Scroll: PASS (scrollWidth=375, windowWidth=375)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Dark Background:   PASS
+  Screenshot:        landing-dark-375.png
+
+[768px - LIGHT]
+  Horizontal Scroll: PASS (scrollWidth=768, windowWidth=768)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Screenshot:        landing-light-768.png
+
+[768px - DARK]
+  Horizontal Scroll: PASS (scrollWidth=768, windowWidth=768)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Dark Background:   PASS
+  Screenshot:        landing-dark-768.png
+
+[1024px - LIGHT]
+  Horizontal Scroll: PASS (scrollWidth=1024, windowWidth=1024)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Screenshot:        landing-light-1024.png
+
+[1024px - DARK]
+  Horizontal Scroll: PASS (scrollWidth=1024, windowWidth=1024)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Dark Background:   PASS
+  Screenshot:        landing-dark-1024.png
+
+[1440px - LIGHT]
+  Horizontal Scroll: PASS (scrollWidth=1440, windowWidth=1440)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Screenshot:        landing-light-1440.png
+
+[1440px - DARK]
+  Horizontal Scroll: PASS (scrollWidth=1440, windowWidth=1440)
+  Hero Section:      PASS
+  Features Section:  PASS
+  SocialProof:       PASS
+  Builder Section:   PASS
+  Header:            PASS
+  Footer:            PASS
+  Dark Background:   PASS
+  Screenshot:        landing-dark-1440.png

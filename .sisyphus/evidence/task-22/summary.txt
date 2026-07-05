@@ -1,0 +1,77 @@
+============================================================
+TASK 22: Dashboard & Detail Page QA Summary
+============================================================
+Date: 2026-07-05
+Dev Server: http://localhost:3000 (running)
+Auth State: No token (testing unauthenticated state)
+
+============================================================
+SCREENSHOTS CAPTURED (12 total)
+============================================================
+
+Dashboard Page (/dashboard):
+  dashboard-light-375.png   (30,206 bytes) PASS
+  dashboard-light-768.png   (47,713 bytes) PASS
+  dashboard-light-1024.png  (49,170 bytes) PASS
+  dashboard-dark-375.png    (29,496 bytes) PASS
+  dashboard-dark-768.png    (46,412 bytes) PASS
+  dashboard-dark-1024.png   (47,927 bytes) PASS
+
+Detail Page (/dashboard/some-test-id):
+  detail-light-375.png      (25,881 bytes) PASS
+  detail-light-768.png      (44,020 bytes) PASS
+  detail-light-1024.png     (45,251 bytes) PASS
+  detail-dark-375.png       (25,015 bytes) PASS
+  detail-dark-768.png       (42,517 bytes) PASS
+  detail-dark-1024.png      (43,804 bytes) PASS
+
+============================================================
+ASSERTIONS
+============================================================
+
+1. HEADER VISIBLE (both pages): PASS
+   - Logo: "wethinkdigital ◆ Resume" link present
+   - Navigation: Home, Sign In, Get Started links
+   - Theme Toggle button: "Switch to dark mode" / "Switch to light mode"
+   - Header uses sticky positioning (top-0 z-40)
+
+2. DASHBOARD AUTH GUARD (no token): PASS
+   - "Sign in to view your resumes" heading visible
+   - Description text: "Track, refine, and download your AI-crafted resumes in one place."
+   - "Sign in" button linking to /login
+   - "Sign up" link redirecting to /signup
+   - Shown in a centered card with lock icon
+
+3. DETAIL BACK LINK: PASS
+   - "← Back to Dashboard" link visible, points to /dashboard
+
+4. NO HORIZONTAL SCROLL: PASS
+   - Dashboard at 375: scrollWidth=375, viewport=375 => NO overflow
+   - Dashboard at 768/1024: same, no overflow
+   - Detail at all viewports: no horizontal scroll
+
+5. FOOTER VISIBLE (both pages): PASS
+   - "wethinkdigital ◆ Resume" branding
+   - Product & Company sections
+   - Copyright: © 2026 WeThinkDigital Solutions
+
+6. THEME TOGGLING: PASS
+   - Light mode: 'dark' class removed from <html>
+   - Dark mode: 'dark' class added to <html>
+   - Theme stored in localStorage('theme')
+
+============================================================
+NOTES
+============================================================
+- No backend running (8080 unavailable) → detail page shows
+  loading state with errors in console (expected: 401 from
+  fetch calls)
+- Dashboard redirects ARE handled inline via React state
+  (auth guard component), NOT via middleware/redirects
+- Layout component (default variant) renders Header + Footer
+  on both pages via RootLayout
+- All viewports render correctly with responsive layout
+
+============================================================
+VERDICT: ALL CHECKS PASS
+============================================================
