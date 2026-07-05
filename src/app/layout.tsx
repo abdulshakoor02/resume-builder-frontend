@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "WeThinkDigital Resume — AI-Powered Resume Builder",
   description:
     "Build professional, ATS-friendly resumes in minutes with AI. Stand out to recruiters with beautifully designed resumes.",
+  icons: {
+    icon: "/wethinkdigital.ico",
+  },
   openGraph: {
     title: "WeThinkDigital Resume — AI-Powered Resume Builder",
     description:
@@ -44,6 +47,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <head>
         <script
