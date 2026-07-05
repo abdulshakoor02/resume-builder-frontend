@@ -206,7 +206,7 @@ export default function ResumeDetailPage({
           <Link href="/dashboard" className="text-sm text-accent hover:text-accent-hover transition-colors font-medium">← Back to Dashboard</Link>
         </div>
         <div className="max-w-lg mx-auto px-6 py-20 text-center">
-          <div className="animate-scale-in">
+          <div className="animate-fade-in">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-success/10 mb-6">
               <svg className="h-10 w-10 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -223,7 +223,7 @@ export default function ResumeDetailPage({
                   Download PDF
                 </span>
               </button>
-              <Link href="/dashboard" className="rounded-xl border border-border bg-surface/80 backdrop-blur px-5 py-2.5 text-sm font-medium text-ink-secondary hover:bg-surface hover:shadow-md transition-all">
+              <Link href="/dashboard" className="rounded-xl border border-border bg-surface px-5 py-2.5 text-sm font-medium text-ink-secondary hover:bg-surface hover:shadow-md transition-all">
                 Dashboard
               </Link>
             </div>

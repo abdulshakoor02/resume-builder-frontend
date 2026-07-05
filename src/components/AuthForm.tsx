@@ -42,7 +42,7 @@ export default function AuthForm({ mode, onSubmit, error }: AuthFormProps) {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-error/10 border border-error/20 rounded-xl text-sm text-error animate-slide-down">
+          <div className="mb-6 p-4 bg-error/10 border border-error/20 rounded-xl text-sm text-error animate-fade-in">
             {error}
           </div>
         )}

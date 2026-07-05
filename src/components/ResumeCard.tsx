@@ -10,7 +10,7 @@ interface ResumeCardProps {
 export default function ResumeCard({ resume }: ResumeCardProps) {
   const statusConfig: Record<string, { bg: string; text: string; dot: string }> = {
     draft: { bg: "bg-surface-raised", text: "text-ink-secondary", dot: "bg-ink-muted" },
-    generating: { bg: "bg-amber-50", text: "text-amber-700", dot: "bg-amber-400 animate-pulse" },
+    generating: { bg: "bg-accent/10", text: "text-accent", dot: "bg-accent/60" },
     completed: { bg: "bg-success/10", text: "text-success", dot: "bg-success" },
     failed: { bg: "bg-error/10", text: "text-error", dot: "bg-error" },
   };
