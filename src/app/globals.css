@@ -1,82 +1,161 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-accent: #6366f1;
-  --color-accent-light: #818cf8;
-  --color-accent-dark: #4f46e5;
-  --color-surface: #f8fafc;
-  --color-surface-alt: #f1f5f9;
+/* ── Design Tokens: Light Mode ── */
+:root {
+  --color-canvas: #FBFBF9;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F5F5F4;
+  --color-ink-primary: #1C1B1A;
+  --color-ink-secondary: #6B6966;
+  --color-ink-muted: #A8A6A2;
+  --color-accent: #5B5AF7;
+  --color-accent-hover: #6F6EF9;
+  --color-border: #E8E7E3;
+  --color-error: #EF4444;
+  --color-success: #10B981;
 }
 
+/* ── Design Tokens: Dark Mode ── */
+.dark {
+  --color-canvas: #14141E;
+  --color-surface: #23232E;
+  --color-surface-raised: #2C2C38;
+  --color-ink-primary: #F0EFED;
+  --color-ink-secondary: #98969E;
+  --color-ink-muted: #63626B;
+  --color-accent: #5B5AF7;
+  --color-accent-hover: #6F6EF9;
+  --color-border: #2E2E38;
+}
+
+/* ── Tailwind v4 Theme: Map CSS variables to utilities ── */
+@theme inline {
+  --color-canvas: var(--color-canvas);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-ink-primary: var(--color-ink-primary);
+  --color-ink-secondary: var(--color-ink-secondary);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-border: var(--color-border);
+  --color-error: var(--color-error);
+  --color-success: var(--color-success);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Instrument Serif", serif;
+}
+
+/* ── Dark mode variant ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Base ── */
 body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink-primary);
   font-family: var(--font-sans);
-  background: linear-gradient(135deg, #f0f4ff 0%, #fdf2f8 50%, #f0f9ff 100%);
   min-height: 100vh;
-}
-
-/* ── Glass card ── */
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-.glass-card-strong {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-/* ── Gradient text ── */
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.gradient-text-subtle {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* ── Buttons ── */
 .btn-primary {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
   font-weight: 500;
-  border-radius: 0.75rem;
-  padding: 0.625rem 1.5rem;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+  background-color: var(--color-accent-hover);
 }
 .btn-primary:active:not(:disabled) {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* ── Input focus glow ── */
-.input-glow {
+.btn-secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-secondary);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
   transition: all 0.2s ease;
-  border-color: #e2e8f0;
 }
-.input-glow:focus {
-  border-color: #818cf8;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-raised);
+  color: var(--color-ink-primary);
+}
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Cards ── */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.card-raised {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Input ── */
+.input-field {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  padding: 0.625rem 1rem;
+  color: var(--color-ink-primary);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+.input-field::placeholder {
+  color: var(--color-ink-muted);
+}
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 20%, transparent);
   outline: none;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ── Section container ── */
+.section-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .section-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 /* ── Animations ── */
@@ -94,33 +173,9 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
-}
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
-}
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .animate-fade-in-up {
@@ -128,12 +183,6 @@ body {
 }
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out both;
-}
-.animate-scale-in {
-  animation: scaleIn 0.3s ease-out both;
-}
-.animate-slide-down {
-  animation: slideDown 0.3s ease-out both;
 }
 
 /* Stagger children */
