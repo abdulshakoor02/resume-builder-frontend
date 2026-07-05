@@ -28,15 +28,13 @@ export default function AuthForm({ mode, onSubmit, error }: AuthFormProps) {
 
   return (
     <div className="w-full max-w-lg mx-auto animate-fade-in-up">
-      <div className="glass-card-strong rounded-2xl p-8 sm:p-10">
+      <div className="card p-8 sm:p-10">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block text-2xl font-bold gradient-text-subtle mb-6">
-            ✦ Resume Builder
-          </Link>
-          <h1 className="text-2xl font-bold text-slate-800">
+          <Link href="/" className="inline-block mb-6"><span className="text-accent">◆</span> <span className="font-display text-ink-primary">Resume</span></Link>
+          <h1 className="text-2xl font-bold text-ink-primary">
             {mode === "login" ? "Welcome back" : "Create your account"}
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-ink-secondary">
             {mode === "login"
               ? "Sign in to access your resumes"
               : "Start building professional resumes in seconds"}
@@ -44,33 +42,33 @@ export default function AuthForm({ mode, onSubmit, error }: AuthFormProps) {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-600 animate-slide-down">
+          <div className="mb-6 p-4 bg-error/10 border border-error/20 rounded-xl text-sm text-error animate-slide-down">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+            <label className="block text-sm font-medium text-ink-primary mb-1.5">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="input-glow w-full rounded-xl border border-slate-200 bg-white/60 backdrop-blur px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition-all"
+              className="input-field w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted outline-none transition-all"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+            <label className="block text-sm font-medium text-ink-primary mb-1.5">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
-              className="input-glow w-full rounded-xl border border-slate-200 bg-white/60 backdrop-blur px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition-all"
+              className="input-field w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted outline-none transition-all"
               placeholder="••••••••"
             />
           </div>
@@ -96,18 +94,18 @@ export default function AuthForm({ mode, onSubmit, error }: AuthFormProps) {
           </button>
         </form>
 
-        <p className="mt-6 text-sm text-center text-slate-500">
+        <p className="mt-6 text-sm text-center text-ink-secondary">
           {mode === "login" ? (
             <>
               Don&apos;t have an account?{" "}
-              <Link href="/signup" className="font-medium text-indigo-500 hover:text-indigo-600 transition-colors">
+              <Link href="/signup" className="font-medium text-accent hover:text-accent-hover transition-colors">
                 Sign up
               </Link>
             </>
           ) : (
             <>
               Already have an account?{" "}
-              <Link href="/login" className="font-medium text-indigo-500 hover:text-indigo-600 transition-colors">
+              <Link href="/login" className="font-medium text-accent hover:text-accent-hover transition-colors">
                 Sign in
               </Link>
             </>

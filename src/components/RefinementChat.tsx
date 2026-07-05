@@ -53,14 +53,14 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
   };
 
   return (
-    <div className="flex flex-col h-full glass-card-strong rounded-2xl overflow-hidden">
+    <div className="flex flex-col h-full card overflow-hidden">
       <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[300px] max-h-[500px]">
         {messages.length === 0 && (
           <div className="text-center py-10">
-            <svg className="mx-auto h-8 w-8 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mx-auto h-8 w-8 text-ink-muted mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            <p className="text-sm text-slate-400 px-4">
+            <p className="text-sm text-ink-muted px-4">
               Ask for changes to refine your resume.<br />e.g. "Make the header bolder" or "Add a skills section"
             </p>
           </div>
@@ -70,8 +70,8 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             <div
               className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/20 rounded-br-md"
-                  : "bg-white border border-slate-100 text-slate-700 shadow-sm rounded-bl-md"
+                  ? "bg-accent text-white shadow-md shadow-accent/20 rounded-br-md"
+                  : "bg-surface border border-border text-ink-primary shadow-sm rounded-bl-md"
               }`}
             >
               <p>{msg.content}</p>
@@ -91,20 +91,20 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
 
       {/* Photo upload area */}
       {photo && (
-        <div className="border-t border-slate-100 px-4 pt-3">
-          <div className="flex items-center gap-3 p-2.5 bg-indigo-50 rounded-xl border border-indigo-100">
+        <div className="border-t border-border px-4 pt-3">
+          <div className="flex items-center gap-3 p-2.5 bg-accent/10 rounded-xl border border-accent/20">
             <img
               src={URL.createObjectURL(photo)}
               alt="Profile preview"
               className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-indigo-700 truncate font-medium">{photo.name}</p>
-              <p className="text-xs text-indigo-400">Will be added to your resume</p>
+              <p className="text-xs text-accent truncate font-medium">{photo.name}</p>
+              <p className="text-xs text-accent/70">Will be added to your resume</p>
             </div>
             <button
               onClick={() => setPhoto(null)}
-              className="text-rose-400 hover:text-rose-600 text-xs transition-colors font-medium"
+              className="text-error/70 hover:text-error text-xs transition-colors font-medium"
             >
               Remove
             </button>
@@ -112,7 +112,7 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
         </div>
       )}
 
-      <div className="border-t border-slate-100 p-4">
+      <div className="border-t border-border p-4">
         <div className="flex gap-2">
           <textarea
             value={input}
@@ -121,7 +121,7 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             placeholder="Type refinement instructions..."
             rows={2}
             disabled={isLoading}
-            className="flex-1 rounded-xl border border-slate-200 bg-white/80 px-3.5 py-2.5 text-sm focus:border-indigo-400 focus:ring-4 focus:ring-indigo-400/10 outline-none resize-none disabled:opacity-50 transition-all placeholder:text-slate-400"
+            className="flex-1 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm focus:border-accent focus:ring-4 focus:ring-accent/10 outline-none resize-none disabled:opacity-50 transition-all placeholder:text-ink-muted"
           />
           <div className="flex flex-col gap-2">
             <button
@@ -143,7 +143,7 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             <button
               onClick={onAccept}
               disabled={isLoading}
-              className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50 transition-all hover:shadow-lg hover:shadow-emerald-500/25 active:scale-95"
+              className="rounded-xl bg-success px-4 py-2 text-sm font-medium text-white hover:bg-success/90 disabled:opacity-50 transition-all hover:shadow-lg hover:shadow-success/25 active:scale-95"
             >
               Accept
             </button>
@@ -154,15 +154,15 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
             {...getRootProps()}
             className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-all duration-200 ${
               isDragActive
-                ? "border-indigo-400 bg-indigo-50"
-                : "border-slate-200 hover:border-indigo-300 hover:bg-slate-50"
+              ? "border-accent bg-accent/10"
+              : "border-border hover:border-accent/50 hover:bg-surface-raised"
             }`}
           >
             <input {...getInputProps()} />
-            <svg className="mx-auto h-6 w-6 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="mx-auto h-6 w-6 text-ink-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <p className="mt-1 text-xs text-slate-400">Add profile photo (JPG, PNG, WebP up to 2MB)</p>
+            <p className="mt-1 text-xs text-ink-muted">Add profile photo (JPG, PNG, WebP up to 2MB)</p>
           </div>
         </div>
       </div>

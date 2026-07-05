@@ -19,13 +19,13 @@ export default function PromptInput({
 }: PromptInputProps) {
   return (
     <div className="w-full">
-      <label className="block text-sm font-medium text-slate-700 mb-2">{label}</label>
+      <label className="block text-sm font-medium text-ink-primary mb-2">{label}</label>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={4}
-        className="input-glow w-full rounded-xl border border-slate-200 bg-white/60 backdrop-blur px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none resize-none transition-all"
+        className="input-field w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted outline-none resize-none transition-all"
         disabled={isLoading}
       />
       <button
