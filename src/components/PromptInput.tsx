@@ -19,19 +19,19 @@ export default function PromptInput({
 }: PromptInputProps) {
   return (
     <div className="w-full">
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-slate-700 mb-2">{label}</label>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={4}
-        className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none resize-none"
+        className="input-glow w-full rounded-xl border border-slate-200 bg-white/60 backdrop-blur px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none resize-none transition-all"
         disabled={isLoading}
       />
       <button
         onClick={onSubmit}
         disabled={isLoading || !value.trim()}
-        className="mt-3 w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="mt-3 w-full btn-primary py-3 text-sm"
       >
         {isLoading ? (
           <span className="flex items-center justify-center gap-2">

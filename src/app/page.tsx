@@ -2,17 +2,48 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import PromptInput from "@/components/PromptInput";
 import FileUpload from "@/components/FileUpload";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 
+const features = [
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+      </svg>
+    ),
+    title: "AI-Powered",
+    description: "Describe your experience in plain language and let AI craft a professional resume tailored to your strengths.",
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+      </svg>
+    ),
+    title: "Beautiful Templates",
+    description: "Get a clean, modern, ATS-friendly resume design that stands out without looking generic.",
+  },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    ),
+    title: "Iterate & Refine",
+    description: "Chat with AI to refine every section. Tweak wording, reorder experience, and perfect your story.",
+  },
+];
+
 export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const { createResume, isGenerating, error } = useResume();
-const { token, logout } = useAuth();
+  const { token, logout } = useAuth();
   const router = useRouter();
 
   const handleFilesSelected = useCallback((newFiles: File[]) => {
@@ -38,39 +69,28 @@ const { token, logout } = useAuth();
 
   return (
     <main className="flex-1 flex flex-col">
+      {/* ── Header ── */}
       <header className="glass-card-strong sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold gradient-text-subtle">
             ✦ Resume Builder
           </Link>
           <div className="flex items-center gap-4">
             {token ? (
               <>
-                <Link
-                  href="/dashboard"
-                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
-                >
+                <Link href="/dashboard" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium">
                   Dashboard
                 </Link>
-                <button
-                  onClick={logout}
-                  className="text-sm text-slate-400 hover:text-rose-500 transition-colors"
-                >
+                <button onClick={logout} className="text-sm text-slate-400 hover:text-rose-500 transition-colors">
                   Log out
                 </button>
               </>
             ) : (
               <>
-                <Link
-                  href="/login"
-                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
-                >
+                <Link href="/login" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium">
                   Sign in
                 </Link>
-                <Link
-                  href="/signup"
-                  className="text-sm btn-primary"
-                >
+                <Link href="/signup" className="text-sm btn-primary">
                   Get started
                 </Link>
               </>
@@ -79,20 +99,78 @@ const { token, logout } = useAuth();
         </div>
       </header>
 
-      <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-2xl animate-fade-in-up">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold tracking-tight">
-              <span className="gradient-text">Build a beautiful resume</span>
-              <br />
-              <span className="text-slate-800">with AI</span>
-            </h1>
-            <p className="mt-3 text-slate-500 text-lg leading-relaxed max-w-lg mx-auto">
-              Describe your experience or upload an existing resume. Our AI will
-              design a professional PDF in seconds.
-            </p>
+      {/* ── Hero Section ── */}
+      <section className="relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 pt-20 pb-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="animate-fade-in-up">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-medium text-indigo-600 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                AI-Powered Resume Builder
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+                <span className="gradient-text">Build a beautiful resume</span>
+                <br />
+                <span className="text-slate-800">in minutes, not hours</span>
+              </h1>
+              <p className="mt-4 text-lg text-slate-500 leading-relaxed max-w-lg">
+                Describe your experience in plain language or upload an existing resume.
+                Our AI designs a professional, ATS-friendly PDF tailored to your career.
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <Link href={token ? "#builder" : "/signup"} className="btn-primary text-sm px-6 py-3">
+                  {token ? "Build your resume" : "Get started free"}
+                </Link>
+                <Link href="#features" className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">
+                  Learn more →
+                </Link>
+              </div>
+            </div>
+            <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-indigo-200/40 border border-white/50">
+                <div className="aspect-[4/3] relative bg-gradient-to-br from-indigo-100 via-white to-purple-100">
+                  <Image
+                    src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80"
+                    alt="Professional resume on a clean desk with laptop"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+              </div>
+              {/* Decorative blobs */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-indigo-200/30 rounded-full blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-purple-200/30 rounded-full blur-2xl" />
+            </div>
           </div>
+        </div>
+      </section>
 
+      {/* ── Features Section ── */}
+      <section id="features" className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-slate-800">Why use Resume Builder?</h2>
+            <p className="mt-2 text-slate-500">Everything you need to land more interviews</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
+            {features.map((feature, i) => (
+              <div key={i} className="glass-card rounded-2xl p-6 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-0.5 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="font-semibold text-slate-800 mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Builder Section ── */}
+      <section id="builder" className="py-8 pb-20">
+        <div className="max-w-2xl mx-auto px-6">
           {error && (
             <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-600 animate-slide-down">
               {error}
@@ -139,7 +217,7 @@ const { token, logout } = useAuth();
             )}
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
