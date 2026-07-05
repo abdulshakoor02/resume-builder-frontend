@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import { useUsage } from "@/hooks/useUsage";
+import PaywallOverlay from "./PaywallOverlay";
 
 interface Message {
   role: "user" | "assistant";
@@ -19,7 +21,9 @@ interface RefinementChatProps {
 export default function RefinementChat({ messages, onSend, isLoading, onAccept }: RefinementChatProps) {
   const [input, setInput] = useState("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [showPaywall, setShowPaywall] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { usage, refetch: refetchUsage } = useUsage();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,9 +44,17 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
 
   const handleSend = () => {
     if (!input.trim() || isLoading) return;
+
+    // Check if user has hit revision limit
+    if (usage && !usage.can_revise) {
+      setShowPaywall(true);
+      return;
+    }
+
     onSend(input.trim(), photo);
     setInput("");
     setPhoto(null);
+    refetchUsage();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -54,6 +66,19 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
 
   return (
     <div className="flex flex-col h-full card overflow-hidden">
+      {usage && (
+        <div className="px-4 pt-3 pb-1 border-b border-border">
+          <div className="flex items-center gap-2 text-xs text-ink-muted">
+            <span>Revisions:</span>
+            <span className="font-mono text-ink-secondary">
+              {usage.total_revisions}/{usage.free_revision_limit}
+            </span>
+            {!usage.can_revise && (
+              <span className="text-warning font-medium">Limit reached</span>
+            )}
+          </div>
+        </div>
+      )}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[300px] max-h-[500px]">
         {messages.length === 0 && (
           <div className="text-center py-10">
@@ -126,7 +151,7 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
           <div className="flex flex-col gap-2">
             <button
               onClick={handleSend}
-              disabled={isLoading || !input.trim()}
+              disabled={isLoading || !input.trim() || (usage ? !usage.can_revise : false)}
               className="btn-primary px-4 py-2 text-sm"
             >
               {isLoading ? (
@@ -166,6 +191,9 @@ export default function RefinementChat({ messages, onSend, isLoading, onAccept }
           </div>
         </div>
       </div>
+      {showPaywall && (
+        <PaywallOverlay type="revision" onClose={() => setShowPaywall(false)} />
+      )}
     </div>
   );
 }

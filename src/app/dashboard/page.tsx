@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
+import { useUsage } from "@/hooks/useUsage";
 import ResumeCard from "@/components/ResumeCard";
+import UsageBanner from "@/components/UsageBanner";
 import Layout from "@/components/Layout";
 import { Resume } from "@/lib/api";
 
 export default function DashboardPage() {
   const { resumes, loadResumes, error } = useResume();
   const { token, isLoading: authLoading } = useAuth();
+  const { usage } = useUsage();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -72,6 +75,12 @@ export default function DashboardPage() {
           ✦ New Resume
         </Link>
       </div>
+
+      {usage && (
+        <div className="mb-6 max-w-sm">
+          <UsageBanner />
+        </div>
+      )}
 
       {error && (
         <div className="mb-6 p-4 bg-error/10 border border-error/20 rounded-xl text-sm text-error">

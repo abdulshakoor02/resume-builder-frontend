@@ -117,6 +117,11 @@ export const api = {
         true
       ),
   },
+
+  usage: {
+    get: () =>
+      request<UsageResponse>("GET", "/api/usage"),
+  },
 };
 
 export interface Resume {
@@ -137,4 +142,13 @@ export interface Revision {
   pdf_path: string;
   pdf_url: string;
   created_at: string;
+}
+
+export interface UsageResponse {
+  resumes_created: number;
+  total_revisions: number;
+  free_resume_limit: number;
+  free_revision_limit: number;
+  can_create: boolean;
+  can_revise: boolean;
 }
