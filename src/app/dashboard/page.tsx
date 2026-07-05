@@ -9,7 +9,7 @@ import { Resume } from "@/lib/api";
 
 export default function DashboardPage() {
   const { resumes, loadResumes, error } = useResume();
-  const { token, isLoading: authLoading, logout } = useAuth();
+  const { token, isLoading: authLoading } = useAuth();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -57,28 +57,6 @@ export default function DashboardPage() {
 
   return (
     <main className="flex-1">
-      <header className="glass-card-strong sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold gradient-text-subtle">
-            ✦ Resume Builder
-          </Link>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={logout}
-              className="text-sm text-slate-400 hover:text-rose-500 transition-colors font-medium"
-            >
-              Log out
-            </button>
-            <Link
-              href="/"
-              className="btn-primary text-sm"
-            >
-              ✦ New Resume
-            </Link>
-          </div>
-        </div>
-      </header>
-
       <div className="max-w-6xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>

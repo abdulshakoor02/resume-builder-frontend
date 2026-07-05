@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Layout from "@/components/Layout";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -63,7 +64,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-canvas text-ink-primary font-sans">
         <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <Layout>{children}</Layout>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

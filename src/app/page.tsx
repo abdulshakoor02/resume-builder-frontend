@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import PromptInput from "@/components/PromptInput";
 import FileUpload from "@/components/FileUpload";
+import HeroSection from "@/components/HeroSection";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
@@ -43,7 +43,7 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const { createResume, isGenerating, error } = useResume();
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const router = useRouter();
 
   const handleFilesSelected = useCallback((newFiles: File[]) => {
@@ -69,83 +69,7 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col">
-      {/* ── Header ── */}
-      <header className="glass-card-strong sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold gradient-text-subtle">
-            ✦ Resume Builder
-          </Link>
-          <div className="flex items-center gap-4">
-            {token ? (
-              <>
-                <Link href="/dashboard" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium">
-                  Dashboard
-                </Link>
-                <button onClick={logout} className="text-sm text-slate-400 hover:text-rose-500 transition-colors">
-                  Log out
-                </button>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium">
-                  Sign in
-                </Link>
-                <Link href="/signup" className="text-sm btn-primary">
-                  Get started
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
-
-      {/* ── Hero Section ── */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 pt-20 pb-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-medium text-indigo-600 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-                AI-Powered Resume Builder
-              </div>
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
-                <span className="gradient-text">Build a beautiful resume</span>
-                <br />
-                <span className="text-slate-800">in minutes, not hours</span>
-              </h1>
-              <p className="mt-4 text-lg text-slate-500 leading-relaxed max-w-lg">
-                Describe your experience in plain language or upload an existing resume.
-                Our AI designs a professional, ATS-friendly PDF tailored to your career.
-              </p>
-              <div className="mt-8 flex items-center gap-4">
-                <Link href={token ? "#builder" : "/signup"} className="btn-primary text-sm px-6 py-3">
-                  {token ? "Build your resume" : "Get started free"}
-                </Link>
-                <Link href="#features" className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">
-                  Learn more →
-                </Link>
-              </div>
-            </div>
-            <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-indigo-200/40 border border-white/50">
-                <div className="aspect-[4/3] relative bg-gradient-to-br from-indigo-100 via-white to-purple-100">
-                  <Image
-                    src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80"
-                    alt="Professional resume on a clean desk with laptop"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
-                  />
-                </div>
-              </div>
-              {/* Decorative blobs */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-indigo-200/30 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-purple-200/30 rounded-full blur-2xl" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* ── Features Section ── */}
       <section id="features" className="py-16">
