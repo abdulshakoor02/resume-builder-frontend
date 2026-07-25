@@ -1,0 +1,87 @@
+- generic [active] [ref=f17e1]:
+  - generic [ref=f17e2]:
+    - banner [ref=f17e3]:
+      - generic [ref=f17e4]:
+        - link "wethinkdigital ◆ Resume" [ref=f17e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f17e6]: wethinkdigital
+          - generic [ref=f17e7]: ◆ Resume
+        - navigation [ref=f17e8]:
+          - link "Home" [ref=f17e9] [cursor=pointer]:
+            - /url: /
+          - link "Sign In" [ref=f17e10] [cursor=pointer]:
+            - /url: /login
+          - link "Get Started" [ref=f17e11] [cursor=pointer]:
+            - /url: /signup
+          - button "Switch to dark mode" [ref=f17e12]:
+            - img [ref=f17e14]
+            - img [ref=f17e21]
+    - dialog "Navigation menu":
+      - button "Close navigation": ✕
+      - generic:
+        - link "wethinkdigital ◆ Resume":
+          - /url: /
+          - generic: wethinkdigital
+          - generic: ◆ Resume
+        - navigation:
+          - button "Home"
+          - button "Dashboard"
+          - button "Sign In"
+        - button "Switch to dark mode":
+          - generic:
+            - img
+          - generic:
+            - img
+    - main [ref=f17e23]:
+      - generic [ref=f17e24]:
+        - link "← Back to Dashboard" [ref=f17e26] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=f17e27]:
+          - generic [ref=f17e28]:
+            - heading "Preview" [level=2] [ref=f17e30]
+            - generic [ref=f17e32]:
+              - img [ref=f17e34]
+              - paragraph [ref=f17e37]: Designing your resume...
+          - generic [ref=f17e43]:
+            - generic [ref=f17e45]:
+              - img [ref=f17e46]
+              - paragraph [ref=f17e48]:
+                - text: Ask for changes to refine your resume.
+                - text: e.g. "Make the header bolder" or "Add a skills section"
+            - generic [ref=f17e49]:
+              - generic [ref=f17e50]:
+                - textbox "Type refinement instructions..." [disabled] [ref=f17e51]
+                - generic [ref=f17e52]:
+                  - button [disabled] [ref=f17e53]:
+                    - img [ref=f17e54]
+                  - button "Accept" [disabled] [ref=f17e57]
+              - generic [ref=f17e59] [cursor=pointer]:
+                - button "Choose File" [ref=f17e60]
+                - img [ref=f17e61]
+                - paragraph [ref=f17e63]: Add profile photo (JPG, PNG, WebP up to 2MB)
+    - contentinfo [ref=f17e64]:
+      - generic [ref=f17e66]:
+        - generic [ref=f17e67]:
+          - link "wethinkdigital ◆ Resume" [ref=f17e68] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f17e69]: wethinkdigital
+            - generic [ref=f17e70]: ◆ Resume
+          - paragraph [ref=f17e71]: AI-powered resumes that get you hired.
+        - generic [ref=f17e72]:
+          - heading "Product" [level=4] [ref=f17e73]
+          - navigation [ref=f17e74]:
+            - link "Home" [ref=f17e75] [cursor=pointer]:
+              - /url: /
+            - link "Features" [ref=f17e76] [cursor=pointer]:
+              - /url: "#features"
+            - link "Dashboard" [ref=f17e77] [cursor=pointer]:
+              - /url: /dashboard
+        - generic [ref=f17e78]:
+          - heading "Company" [level=4] [ref=f17e79]
+          - navigation [ref=f17e80]:
+            - link "Powered by WeThinkDigital" [ref=f17e81] [cursor=pointer]:
+              - /url: https://wethinkdigital.solutions
+      - paragraph [ref=f17e84]: © 2026 WeThinkDigital Solutions. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=f17e90] [cursor=pointer]:
+    - img [ref=f17e91]
+  - alert [ref=f17e94]

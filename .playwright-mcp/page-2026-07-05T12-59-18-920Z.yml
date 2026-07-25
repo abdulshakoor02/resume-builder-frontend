@@ -1,0 +1,109 @@
+- generic [active] [ref=f16e1]:
+  - generic [ref=f16e2]:
+    - banner [ref=f16e3]:
+      - generic [ref=f16e4]:
+        - link "◆ Resume" [ref=f16e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f16e6]: ◆ Resume
+        - button "Open navigation" [ref=f16e7]:
+          - img [ref=f16e8]
+    - dialog "Navigation menu":
+      - button "Close navigation": ✕
+      - generic:
+        - link "◆ Resume":
+          - /url: /
+          - generic: ◆ Resume
+        - navigation:
+          - button "Home"
+          - button "Dashboard"
+          - button "Sign In"
+        - button "Switch to light mode":
+          - generic:
+            - img
+          - generic:
+            - img
+    - main [ref=f16e9]:
+      - main [ref=f16e10]:
+        - generic [ref=f16e14]:
+          - generic [ref=f16e15]: AI-Powered Resume Builder
+          - heading "Build a beautiful resume in minutes, not hours" [level=1] [ref=f16e17]:
+            - text: Build a beautiful resume
+            - generic [ref=f16e18]: in minutes, not hours
+          - paragraph [ref=f16e19]: Describe your experience in plain language or upload an existing resume. Our AI designs a professional, ATS-friendly PDF tailored to your career.
+          - generic [ref=f16e20]:
+            - link "Get started free" [ref=f16e21] [cursor=pointer]:
+              - /url: /signup
+            - link "See how it works" [ref=f16e22] [cursor=pointer]:
+              - /url: "#features"
+        - generic [ref=f16e24]:
+          - generic [ref=f16e25]:
+            - heading "Everything you need to land the job" [level=2] [ref=f16e26]
+            - paragraph [ref=f16e27]: Our AI handles the formatting so you can focus on what matters — your experience
+          - generic [ref=f16e28]:
+            - generic [ref=f16e30]:
+              - heading "AI-Powered" [level=3] [ref=f16e31]
+              - paragraph [ref=f16e32]: Describe your experience in plain language and let AI craft a professional resume tailored to your strengths.
+            - generic [ref=f16e34]:
+              - heading "Beautiful Templates" [level=3] [ref=f16e35]
+              - paragraph [ref=f16e36]: Get a clean, modern, ATS-friendly resume design that stands out without looking generic.
+            - generic [ref=f16e38]:
+              - heading "Iterate & Refine" [level=3] [ref=f16e39]
+              - paragraph [ref=f16e40]: Chat with AI to refine every section. Tweak wording, reorder experience, and perfect your story.
+        - generic [ref=f16e43]:
+          - generic [ref=f16e44]:
+            - paragraph [ref=f16e45]: 10,000+
+            - paragraph [ref=f16e46]: Resumes Created
+          - generic [ref=f16e47]:
+            - paragraph [ref=f16e48]: ATS-Optimized
+            - paragraph [ref=f16e49]: Format Ready
+          - generic [ref=f16e50]:
+            - paragraph [ref=f16e51]: 4.8/5
+            - paragraph [ref=f16e52]: User Rating
+        - generic [ref=f16e54]:
+          - heading "Start building your resume" [level=2] [ref=f16e55]
+          - generic [ref=f16e56]:
+            - generic [ref=f16e57]:
+              - generic [ref=f16e58]: What kind of resume do you need?
+              - textbox "Describe the resume you want, or paste your existing resume text..." [ref=f16e59]
+              - button "Build My Resume" [disabled] [ref=f16e60]
+            - generic [ref=f16e65]: or
+            - generic [ref=f16e67] [cursor=pointer]:
+              - button "Choose File" [ref=f16e68]
+              - generic [ref=f16e69]:
+                - img [ref=f16e70]
+                - paragraph [ref=f16e72]: Drag & drop your resume files, or click to browse
+                - paragraph [ref=f16e73]: PDF or Word (.docx) up to 10MB
+    - contentinfo [ref=f16e74]:
+      - generic [ref=f16e76]:
+        - generic [ref=f16e77]:
+          - link "◆ Resume" [ref=f16e78] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f16e79]: ◆ Resume
+          - paragraph [ref=f16e80]: AI-powered resumes that get you hired.
+        - generic [ref=f16e81]:
+          - heading "Product" [level=4] [ref=f16e82]
+          - navigation [ref=f16e83]:
+            - link "Home" [ref=f16e84] [cursor=pointer]:
+              - /url: /
+            - link "Features" [ref=f16e85] [cursor=pointer]:
+              - /url: "#features"
+            - link "Dashboard" [ref=f16e86] [cursor=pointer]:
+              - /url: /dashboard
+        - generic [ref=f16e87]:
+          - heading "Company" [level=4] [ref=f16e88]
+          - navigation [ref=f16e89]:
+            - link "Powered by WeThinkDigital" [ref=f16e90] [cursor=pointer]:
+              - /url: https://wethinkdigital.solutions
+      - paragraph [ref=f16e93]: © 2026 WeThinkDigital Solutions. All rights reserved.
+  - generic [ref=f16e98] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f16e99]:
+      - img [ref=f16e100]
+    - generic [ref=f16e103]:
+      - button "Open issues overlay" [ref=f16e104]:
+        - generic [ref=f16e105]:
+          - generic [ref=f16e106]: "0"
+          - generic [ref=f16e107]: "1"
+        - generic [ref=f16e108]: Issue
+      - button "Collapse issues badge" [ref=f16e109]:
+        - img [ref=f16e110]
+  - alert [ref=f16e112]

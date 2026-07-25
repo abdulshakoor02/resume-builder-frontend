@@ -1,0 +1,23 @@
+- generic [active] [ref=f18e1]:
+  - generic [ref=f18e2]:
+    - link "wethinkdigital ◆ Resume" [ref=f18e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=f18e5]: wethinkdigital
+      - generic [ref=f18e6]: ◆ Resume
+    - heading "404" [level=1] [ref=f18e7]
+    - paragraph [ref=f18e8]: Page not found
+    - paragraph [ref=f18e9]: The page you're looking for doesn't exist or has been moved.
+    - link "Back to Home" [ref=f18e10] [cursor=pointer]:
+      - /url: /
+  - generic [ref=f18e15] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f18e16]:
+      - img [ref=f18e17]
+    - generic [ref=f18e20]:
+      - button "Open issues overlay" [ref=f18e21]:
+        - generic [ref=f18e22]:
+          - generic [ref=f18e23]: "0"
+          - generic [ref=f18e24]: "1"
+        - generic [ref=f18e25]: Issue
+      - button "Collapse issues badge" [ref=f18e26]:
+        - img [ref=f18e27]
+  - alert [ref=f18e29]

@@ -1,0 +1,44 @@
+- generic [active] [ref=f12e1]:
+  - generic [ref=f12e3]:
+    - link "wethinkdigital ◆ Resume" [ref=f12e5] [cursor=pointer]:
+      - /url: /
+      - generic [ref=f12e6]: wethinkdigital
+      - generic [ref=f12e7]: ◆ Resume
+    - generic [ref=f12e8]:
+      - generic [ref=f12e9]:
+        - heading "Create your account" [level=1] [ref=f12e10]
+        - paragraph [ref=f12e11]: Start building professional resumes in minutes
+      - generic [ref=f12e13]:
+        - generic [ref=f12e14]:
+          - link "◆ Resume" [ref=f12e15] [cursor=pointer]:
+            - /url: /
+          - heading "Create your account" [level=1] [ref=f12e16]
+          - paragraph [ref=f12e17]: Start building professional resumes in seconds
+        - generic [ref=f12e18]:
+          - generic [ref=f12e19]:
+            - generic [ref=f12e20]: Email
+            - textbox "you@example.com" [ref=f12e21]
+          - generic [ref=f12e22]:
+            - generic [ref=f12e23]: Password
+            - textbox "••••••••" [ref=f12e24]
+          - button "Create account" [ref=f12e25]
+        - paragraph [ref=f12e26]:
+          - text: Already have an account?
+          - link "Sign in" [ref=f12e27] [cursor=pointer]:
+            - /url: /login
+      - paragraph [ref=f12e28]:
+        - text: Already have an account?
+        - link "Sign in" [ref=f12e29] [cursor=pointer]:
+          - /url: /login
+  - generic [ref=f12e34] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f12e35]:
+      - img [ref=f12e36]
+    - generic [ref=f12e39]:
+      - button "Open issues overlay" [ref=f12e40]:
+        - generic [ref=f12e41]:
+          - generic [ref=f12e42]: "0"
+          - generic [ref=f12e43]: "1"
+        - generic [ref=f12e44]: Issue
+      - button "Collapse issues badge" [ref=f12e45]:
+        - img [ref=f12e46]
+  - alert [ref=f12e48]
