@@ -6,12 +6,17 @@ import PromptInput from "./PromptInput";
 import FileUpload from "./FileUpload";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
+import { useUsage } from "@/hooks/useUsage";
+import UsageBanner from "./UsageBanner";
+import PaywallOverlay from "./PaywallOverlay";
 
 export default function BuilderSection() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const { createResume, isGenerating, error } = useResume();
   const { token } = useAuth();
+  const { usage, refetch: refetchUsage } = useUsage();
+  const [showPaywall, setShowPaywall] = useState(false);
   const router = useRouter();
 
   const handleFilesSelected = useCallback((newFiles: File[]) => {
@@ -24,6 +29,12 @@ export default function BuilderSection() {
       return;
     }
 
+    // Check if user has hit resume limit
+    if (usage && !usage.can_create) {
+      setShowPaywall(true);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("prompt", prompt);
     formData.append("title", prompt.slice(0, 100));
@@ -31,6 +42,7 @@ export default function BuilderSection() {
 
     const resumeId = await createResume(formData);
     if (resumeId) {
+      refetchUsage();
       router.push(`/dashboard/${resumeId}`);
     }
   };
@@ -38,6 +50,12 @@ export default function BuilderSection() {
   return (
     <section id="builder" className="py-8 pb-20">
       <div className="max-w-2xl mx-auto px-6">
+        {usage && token && (
+          <div className="mb-6">
+            <UsageBanner />
+          </div>
+        )}
+
         <h2 className="text-3xl font-display text-ink-primary text-center mb-8">
           Start building your resume
         </h2>
@@ -88,6 +106,9 @@ export default function BuilderSection() {
           )}
         </div>
       </div>
+      {showPaywall && (
+        <PaywallOverlay type="resume" onClose={() => setShowPaywall(false)} />
+      )}
     </section>
   );
 }
