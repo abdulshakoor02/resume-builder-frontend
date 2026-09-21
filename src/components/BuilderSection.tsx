@@ -93,8 +93,8 @@ export default function BuilderSection() {
 
           <button
             onClick={handleSubmit}
-            disabled={isGenerating}
-            className="w-full btn-primary py-3.5 text-sm"
+            disabled={isGenerating || (files.length === 0 && !prompt.trim())}
+            className="w-full btn-primary py-3.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isGenerating ? (
               <span className="flex items-center justify-center gap-2">
