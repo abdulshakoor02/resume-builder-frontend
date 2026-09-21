@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import PromptInput from "./PromptInput";
 import FileUpload from "./FileUpload";
+import DesignRefUpload from "./DesignRefUpload";
 import { useResume } from "@/hooks/useResume";
 import { useAuth } from "@/hooks/useAuth";
 import { useUsage } from "@/hooks/useUsage";
@@ -13,6 +14,7 @@ import PaywallOverlay from "./PaywallOverlay";
 export default function BuilderSection() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+  const [designRef, setDesignRef] = useState<File | null>(null);
   const { createResume, isGenerating, error } = useResume();
   const { token } = useAuth();
   const { usage, refetch: refetchUsage } = useUsage();
@@ -39,6 +41,8 @@ export default function BuilderSection() {
     formData.append("prompt", prompt);
     formData.append("title", prompt.slice(0, 100));
     files.forEach((f) => formData.append("files", f));
+    // Optional: sent as a reference for the *design* only, never for content.
+    if (designRef) formData.append("design_ref", designRef);
 
     const resumeId = await createResume(formData);
     if (resumeId) {
@@ -85,25 +89,27 @@ export default function BuilderSection() {
 
           <FileUpload onFilesSelected={handleFilesSelected} files={files} />
 
-          {files.length > 0 && (
-            <button
-              onClick={handleSubmit}
-              disabled={isGenerating}
-              className="w-full btn-primary py-3.5 text-sm"
-            >
-              {isGenerating ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Generating...
-                </span>
-              ) : (
-                "Build Resume from Uploads"
-              )}
-            </button>
-          )}
+          <DesignRefUpload file={designRef} onChange={setDesignRef} />
+
+          <button
+            onClick={handleSubmit}
+            disabled={isGenerating}
+            className="w-full btn-primary py-3.5 text-sm"
+          >
+            {isGenerating ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Generating...
+              </span>
+            ) : files.length > 0 ? (
+              "Build Resume from Uploads"
+            ) : (
+              "Build Resume"
+            )}
+          </button>
         </div>
       </div>
       {showPaywall && (
