@@ -112,9 +112,8 @@ export default function ResumeCard({ resume, onDelete }: ResumeCardProps) {
         title="Delete this resume?"
         description={
           <>
-            <span className="font-medium text-ink-primary">{resume.title}</span> and everything
-            built from it will be permanently deleted — all revisions, the generated document, and
-            the files you uploaded. This can&apos;t be undone.
+            <span className="font-medium text-ink-primary">{resume.title}</span>
+            {" and everything built from it will be permanently deleted — all revisions, the generated document, and the files you uploaded. This can't be undone."}
           </>
         }
         confirmLabel="Delete resume"
