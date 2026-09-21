@@ -11,10 +11,11 @@ import Layout from "@/components/Layout";
 import { Resume } from "@/lib/api";
 
 export default function DashboardPage() {
-  const { resumes, loadResumes, error } = useResume();
+  const { resumes, loadResumes, deleteResume, error } = useResume();
   const { token, isLoading: authLoading } = useAuth();
-  const { usage } = useUsage();
+  const { usage, refetch: refetchUsage } = useUsage();
   const [loaded, setLoaded] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   useEffect(() => {
     if (token && !loaded) {
@@ -22,6 +23,23 @@ export default function DashboardPage() {
       setLoaded(true);
     }
   }, [token, loaded, loadResumes]);
+
+  // Deleting also changes the usage counters (they count completed resumes),
+  // so re-read them once the delete succeeds.
+  const handleDelete = async (id: string) => {
+    const res = await deleteResume(id);
+    if (res.ok) {
+      setNotice(
+        res.filesFailed > 0
+          ? `Resume deleted, but ${res.filesFailed} stored file${
+              res.filesFailed > 1 ? "s" : ""
+            } couldn't be removed from object storage.`
+          : null
+      );
+      refetchUsage();
+    }
+    return res;
+  };
 
   if (authLoading) {
     return (
@@ -88,6 +106,19 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {notice && (
+        <div className="mb-6 p-4 bg-surface-raised border border-border rounded-xl text-sm text-ink-secondary flex items-start justify-between gap-4">
+          <span>{notice}</span>
+          <button
+            type="button"
+            onClick={() => setNotice(null)}
+            className="shrink-0 text-xs font-medium text-ink-primary underline underline-offset-2 hover:no-underline"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+
       {resumes.length === 0 ? (
         <div className="text-center py-20 card animate-fade-in-up">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-accent/5 mb-6">
@@ -106,7 +137,7 @@ export default function DashboardPage() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 stagger">
           {resumes.map((resume: Resume) => (
-            <ResumeCard key={resume.id} resume={resume} />
+            <ResumeCard key={resume.id} resume={resume} onDelete={handleDelete} />
           ))}
         </div>
       )}

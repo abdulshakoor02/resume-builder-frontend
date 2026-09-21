@@ -68,6 +68,24 @@ export function useResume() {
     }
   };
 
+  /**
+   * Deletes a resume permanently (backend removes its DB rows, stored
+   * HTML/PDF objects and uploads). On success the card is dropped from local
+   * state; the caller re-reads usage because it counts completed resumes.
+   */
+  const deleteResume = async (id: string) => {
+    setError(null);
+    try {
+      const res = await api.resumes.remove(id);
+      setResumes((prev) => prev.filter((r) => r.id !== id));
+      if (currentResume?.id === id) setCurrentResume(null);
+      return { ok: true as const, filesFailed: res?.files_failed ?? 0 };
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete resume");
+      return { ok: false as const, filesFailed: 0 };
+    }
+  };
+
   return {
     resumes,
     currentResume,
@@ -77,6 +95,7 @@ export function useResume() {
     loadResumes,
     loadResume,
     refineResume,
+    deleteResume,
     getPdfBlob,
   };
 }

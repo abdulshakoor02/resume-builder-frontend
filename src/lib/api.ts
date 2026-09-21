@@ -106,6 +106,16 @@ export const api = {
       if (!res.ok) throw new Error("Failed to fetch PDF");
       return res.blob();
     },
+    // Deletes the resume and everything derived from it (DB rows, stored
+    // HTML/PDF objects, photo, uploads). Irreversible.
+    remove: (id: string) =>
+      request<{
+        deleted: boolean;
+        resume_id: string;
+        uploads_deleted?: number;
+        files_deleted?: number;
+        files_failed?: number;
+      }>("DELETE", `/api/resumes/${id}`),
   },
 
   upload: {
